@@ -52,7 +52,7 @@ public class MyGameFrame extends Frame{
         bird1.drawMySelf(g);
         bird2.drawMySelf(g);
         bird3.drawMySelf(g);
-        cannon.DrawMySelf(g);
+        cannon.drawMySelf(g);
 	}
 
 	
@@ -80,6 +80,7 @@ public class MyGameFrame extends Frame{
 		
 		public void keyReleased(KeyEvent e) {
 			cannon.minusDrection(e);
+			cannon.bullet.launch(e);
 		}
 	}
 	

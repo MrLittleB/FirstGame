@@ -5,11 +5,14 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
 public class Cannon extends GameObject{
-	static boolean left, right;
+
+	 boolean left, right, space;
 	boolean live = true;
+	int bulletNum = 0;
+	Bullet bullet;
+	
 	
 	public void addDrection(KeyEvent e) {
-		System.out.println(e.getKeyCode());
 		switch(e.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
 			left = true;
@@ -36,8 +39,18 @@ public class Cannon extends GameObject{
 		}
 	}
 	
-	public void DrawMySelf(Graphics g) {
+
+	public void drawMySelf(Graphics g) {
 		super.drawMySelf(g);
+		if(bullet.space) {
+			bullet.drawMySelf(g);
+			bulletNum++;
+			System.out.println(bulletNum);
+		}
+		else
+		{
+			bullet.drawMySelf(x, y, g);
+		}
 		if(left) {
 			x-=speed;
 		}
@@ -48,6 +61,10 @@ public class Cannon extends GameObject{
 	
 	public Cannon(Image img, double x, double y, int speed) {
 		super(img, x, y);
+		Image bulletImg = GameUtil.getImage("Image/ÅÚµ¯.png");
+		
+
+		bullet = new Bullet(bulletImg, x,y,20);
 		this.speed = speed;
 	}
 
