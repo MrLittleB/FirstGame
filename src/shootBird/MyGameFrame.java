@@ -8,10 +8,9 @@ public class MyGameFrame extends Frame{
 	Image bgImg = GameUtil.getImage("Image/Background.png");
 	Image birdImg = GameUtil.getImage("Image/niao1.png");
 	
-	Image offScreenImage = null;
+	Image offScreenImage = null; //双缓冲用
 	
-	int birdX = 200;
-	int birdY = 200;
+	Bird bird = new Bird(birdImg, 300, 300);
 	
 	static int count = 0;
 	
@@ -20,7 +19,7 @@ public class MyGameFrame extends Frame{
 		setTitle("打鸟游戏");
 		setVisible(true);
 		setSize(1000,562);
-		setLocation(300,300);
+		setLocation(0,0);
 		
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -31,6 +30,7 @@ public class MyGameFrame extends Frame{
 		 new PaintThread().start(); 
 	}
 	
+	////////////双缓冲，解决闪烁问题
 	public void update(Graphics g) {
         if(offScreenImage == null)
                   offScreenImage = this.createImage(1000,562);//这是游戏窗口的宽度和高度
@@ -43,9 +43,8 @@ public class MyGameFrame extends Frame{
 	
 	public void paint(Graphics g) {
 		g.drawImage(bgImg, 0, 0, null);
-		 System.out.println("调用paint，重画窗口，次数："+(count++));
-        g.drawImage(birdImg, birdX, birdY, null);
-        birdX = birdX + 3;
+		System.out.println("调用paint，重画窗口，次数："+(count++));
+        bird.drawMySelf(g);
 	}
 
 	
